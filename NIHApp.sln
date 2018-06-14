@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{8F990C59-2E2C-4951-865B-7F0F0017C1E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{E41423EE-3A21-4EE6-87C2-ED1782739490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Implementation", "Implementation\Implementation.csproj", "{02C932B9-7B8C-4760-B854-0C7E8C856A5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{B06FACBA-6210-40B1-B85E-F9C4ACA6A673}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Websites", "Websites", "{8047A72D-0FA1-4DB1-8FD3-EEDB0BADC9C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps", "{6AA17832-8D36-4293-BD06-6E10728762C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApi", "RestApi\RestApi.csproj", "{CCA2B1EA-8649-4A0E-AE20-16A2565CC2B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{07006E23-9E56-4EC6-8A45-E66802449049}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{A79506FD-371C-4B12-8D23-400F9D65CD88}"
+	ProjectSection(SolutionItems) = preProject
+		lib\NHibernate.Burrow.AppBlock.dll = lib\NHibernate.Burrow.AppBlock.dll
+		lib\NHibernate.Burrow.dll = lib\NHibernate.Burrow.dll
+		lib\NHibernate.Burrow.WebUtil.dll = lib\NHibernate.Burrow.WebUtil.dll
+		lib\structuremap262\NServiceBus.ObjectBuilder.StructureMap262.dll = lib\structuremap262\NServiceBus.ObjectBuilder.StructureMap262.dll
+		lib\StructureMap.dll = lib\StructureMap.dll
+		lib\structuremap262\StructureMap.dll = lib\structuremap262\StructureMap.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailProcessor", "EmailProcessor\EmailProcessor.csproj", "{C4059EAB-2666-41DF-A34A-56EC089A591D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NIHApp.Database", "NIHApp.Database\NIHApp.Database.sqlproj", "{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F990C59-2E2C-4951-865B-7F0F0017C1E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F990C59-2E2C-4951-865B-7F0F0017C1E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F990C59-2E2C-4951-865B-7F0F0017C1E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F990C59-2E2C-4951-865B-7F0F0017C1E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E41423EE-3A21-4EE6-87C2-ED1782739490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E41423EE-3A21-4EE6-87C2-ED1782739490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E41423EE-3A21-4EE6-87C2-ED1782739490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E41423EE-3A21-4EE6-87C2-ED1782739490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C932B9-7B8C-4760-B854-0C7E8C856A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C932B9-7B8C-4760-B854-0C7E8C856A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C932B9-7B8C-4760-B854-0C7E8C856A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C932B9-7B8C-4760-B854-0C7E8C856A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA2B1EA-8649-4A0E-AE20-16A2565CC2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA2B1EA-8649-4A0E-AE20-16A2565CC2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA2B1EA-8649-4A0E-AE20-16A2565CC2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA2B1EA-8649-4A0E-AE20-16A2565CC2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CCA2B1EA-8649-4A0E-AE20-16A2565CC2B3} = {B06FACBA-6210-40B1-B85E-F9C4ACA6A673}
+		{07006E23-9E56-4EC6-8A45-E66802449049} = {B06FACBA-6210-40B1-B85E-F9C4ACA6A673}
+		{C4059EAB-2666-41DF-A34A-56EC089A591D} = {6AA17832-8D36-4293-BD06-6E10728762C7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {011B7D88-03BF-4020-9414-BF569C0F00A8}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.0\lib\NET45
+	EndGlobalSection
+EndGlobal
