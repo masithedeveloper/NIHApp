@@ -63,6 +63,7 @@
     <Compile Include="Entities\EntityIsolated.cs" />
     <Compile Include="Entities\ScheduledEmail.cs" />
     <Compile Include="Entities\Person.cs" />
+    <Compile Include="Entities\Transport.cs" />
     <Compile Include="Entities\UserIdentity.cs" />
     <Compile Include="Entities\UserPrincipal.cs" />
     <Compile Include="Enums\EventType.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Persistance\ScheduledEmailMap.cs" />
     <Compile Include="Persistance\DeviceMap.cs" />
     <Compile Include="Persistance\PersonMap.cs" />
+    <Compile Include="Persistance\TransportMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
