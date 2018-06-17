@@ -19,7 +19,7 @@ namespace NIHApp.Infrastructure.Criteria
         public ICriteria Criteria(ISession session)
         {
             return session.CreateCriteria(typeof(Person))
-                  .Add(Restrictions.Eq("Id", _personId));
+                  .Add(Restrictions.Eq("PerTransportId", _personId));
         }
     }
 }
