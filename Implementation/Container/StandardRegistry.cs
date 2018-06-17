@@ -17,8 +17,11 @@ namespace NIHApp.Implementation.Container
             
 			For(typeof(IDeviceRepository)).Use(typeof(DeviceRepository));
 			For(typeof(IDeviceService)).Use(typeof(DeviceService));
-            
-			For(typeof(ISessionService)).Use(typeof(SessionService));
+
+            For(typeof(ITransportRepository)).Use(typeof(TransportRepository));
+            For(typeof(ITransportService)).Use(typeof(TransportService));
+
+            For(typeof(ISessionService)).Use(typeof(SessionService));
 			For(typeof(ISessionRepository)).Use(typeof(SessionRepository));
             
             For(typeof(IAuthenticationService)).Use(typeof(AuthenticationService));
