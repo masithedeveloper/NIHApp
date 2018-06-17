@@ -14,7 +14,12 @@ namespace NIHApp.Infrastructure.Repositories
 		{
 		}
 
-		public IList<Person> FindPersonByEmail(string email)
+        public IList<Person> FindParentsListByDriverId(long driverId)
+        {
+            return FindBySpecification(new ParentsSerchByDriverCriteria(driverId));
+        }
+
+        public IList<Person> FindPersonByEmail(string email)
 		{
 			return FindBySpecification(new PersonSearchByEmailCriteria(email));
 		}

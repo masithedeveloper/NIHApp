@@ -127,12 +127,18 @@ namespace NIHApp.Implementation.Services
 			return persons.Select(x => new PersonModel(x)).ToList();
 		}
 
-		/// <summary>
-		/// Person Registration
-		/// </summary>
-		/// <param name="personRegisterModel">Person Registration Model</param>
-		/// <returns>Registered Person</returns>
-		public PersonRegisterModel CreatePerson(PersonRegisterModel personRegisterModel)
+        public IList<PersonModel> GetParentsListByDriverId(long driverId)
+        {
+            var persons = _personRepository.FindParentsListByDriverId(driverId);
+            return persons.Select(x => new PersonModel(x)).ToList();
+        }
+
+        /// <summary>
+        /// Person Registration
+        /// </summary>
+        /// <param name="personRegisterModel">Person Registration Model</param>
+        /// <returns>Registered Person</returns>
+        public PersonRegisterModel CreatePerson(PersonRegisterModel personRegisterModel)
 		{
 			var person = new Person
 			{	
@@ -288,5 +294,7 @@ namespace NIHApp.Implementation.Services
         {
             return _personRepository.Get(personId);
         }
+
+    
     }
 }

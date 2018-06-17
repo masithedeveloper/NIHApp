@@ -28,8 +28,22 @@ namespace NIHApp.RestApi.Controllers
         
 			return person;
 		}
-        
-		[HttpPut]
+
+        [HttpGet]
+        [Route("person/GetParentsListByDriverId/{DriverId}")]
+        public IList<PersonModel> GetParentsListByDriverId(long DriverId)
+        {
+            var parentsList = _personService.GetParentsListByDriverId(DriverId);
+            if (parentsList == null)
+                throw new InvalidDataException("Person does not exist.");
+
+            if (!IsValidPersonRequest(DriverId))
+                throw new ApiSecurityException();
+
+            return parentsList;
+        }
+
+        [HttpPut]
 		public StatusCodeResult ChangePassword(long personId, string newPassword)
 		{
             if(CurrentSession.SesPersonId != personId)

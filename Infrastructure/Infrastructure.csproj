@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Criteria\EventSearchByDatesAndParentIdCriteria.cs" />
     <Compile Include="Criteria\NotificationsSearchByParentIdCriteria.cs" />
+    <Compile Include="Criteria\ParentsSerchByDriverCriteria.cs" />
     <Compile Include="Criteria\SessionSearchByPersonIdCriteria.cs" />
     <Compile Include="Criteria\DevicesSearchByDateCriteria.cs" />
     <Compile Include="Criteria\DevicesSearchByCodeCriteria.cs" />

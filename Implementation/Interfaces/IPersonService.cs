@@ -20,6 +20,7 @@ namespace NIHApp.Implementation.Interfaces
         PersonRegisterModel UpdatePerson(PersonRegisterModel personRegisterModel);
         PersonModel UpdatePerson(PersonModel personModel);
 		void DeletePerson(long personId);
-		IList<PersonModel> GetPersonByDate(long personId, DateTime modifiedAfter);
+        IList<PersonModel> GetParentsListByDriverId(long driverId);
+        IList<PersonModel> GetPersonByDate(long personId, DateTime modifiedAfter);
 	}
 }
