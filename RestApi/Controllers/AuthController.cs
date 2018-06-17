@@ -104,8 +104,8 @@ namespace NIHApp.RestApi.Controllers
 
 					errorInfo = ApplicationConfiguration.RegisterEmailInvalid;
 				}
-				
-				else if ((personRegisterModel.ObjectId != 0) && !_personService.IsVerified(personRegisterModel.ObjectId)) // Update Registration and/or Resent Veification Code
+
+                /*else if ((personRegisterModel.ObjectId != 0) && !_personService.IsVerified(personRegisterModel.ObjectId)) // Update Registration and/or Resent Veification Code
 				{
 					personRegisterModel = _personService.CreatePerson(personRegisterModel);
 					AuthModelLight authModelLight = new AuthModelLight
@@ -119,12 +119,13 @@ namespace NIHApp.RestApi.Controllers
 
 					return authModelLight;
 				}
+                */
 
                 else
-				{
+                {
 					errorInfo = ApplicationConfiguration.RegisterEmailDuplicate;
 				}
-
+                
 				return new AuthModelLight()
 				{
 					Desc = errorInfo,

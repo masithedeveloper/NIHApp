@@ -1,4 +1,6 @@
-﻿using NIHApp.Implementation.Interfaces;
+﻿using NIHApp.Domain.Entities;
+using NIHApp.Domain.Enums;
+using NIHApp.Implementation.Interfaces;
 using NIHApp.Implementation.Presentation.RestModels;
 using NIHApp.Infrastructure.Interfaces;
 using System;
@@ -12,16 +14,71 @@ namespace NIHApp.Implementation.Services
     public class EventService : IEventService
     {
         private IEventRepository _eventRepository;
-
-        public EventService(IEventRepository eventRepository)
+        private INotificationService _notificationService;
+        private IDeviceRepository _deviceRepository;
+        
+        public EventService(IEventRepository eventRepository, INotificationService notificationService, IDeviceRepository deviceRepository)
         {
             _eventRepository = eventRepository;
+            _notificationService = notificationService;
+            _deviceRepository = deviceRepository;
         }
 
-        public IList<EventModel> GetEventsByDatesAndParentId(DateTime From, DateTime To, long ParentId)
+        public EventModel CreateEvent(EventModel eventModel)
         {
+            var _event = new Event
+            {
+                EvtParentId = eventModel.EvtParentId,
+                EvtDrivertId = eventModel.EvtDrivertId,
+                EvtPickUpTime = eventModel.EvtPickUpTime,
+                EvtDropOffTime = eventModel.EvtDropOffTime,
+                EvtTripFromHome = eventModel.EvtTripFromHome,
+                EvtType = eventModel.EvtType,
+                EvtLongitude = eventModel.EvtLongitude,
+                EvtLatitude = eventModel.EvtLatitude,
+            };
+
+            using (var transaction = _eventRepository.Session.BeginTransaction())
+            {
+                _eventRepository.Save(_event);
+                transaction.Commit();
+            }
+
+            var newEventModel = new EventModel(_event);
+
+            // send a notifocation 
+            var Body = "";
+            if (_event.EvtType.Equals(EventType.PickUp)) {
+                if(_event.EvtTripFromHome)
+                    Body = "Your child has been picked up from home at " + _event.EvtPickUpTime;
+                else
+                    Body = "Your child has been picked up from school at " + _event.EvtPickUpTime;
+            }
+
+            else if (_event.EvtType.Equals(EventType.DropOff))
+            {
+                if (_event.EvtTripFromHome)
+                    Body = "Your child has been dropped off from home at " + _event.EvtDropOffTime;
+                else
+                    Body = "Your child has been dropped off from school at " + _event.EvtDropOffTime;
+            }
+
+            // check if the device is not empty
+            IList<Device> devices = _deviceRepository.FindDevicesByPersonId(_event.EvtParentId);
+            foreach (DeviceModel device in devices.Select(x => new DeviceModel(x)).ToList()) {
+                _notificationService.NotifyAsync(device.DeviceCode, _event.EvtType, Body, newEventModel);
+            }
+            return newEventModel;
+        }
+
+        public BillSummaryModel GetTripsBillForTheCurrentMonth(long ParentId)
+        {
+            DateTime now = DateTime.Now;
+            var From = new DateTime(now.Year, now.Month, 1);
+            var To = From.AddMonths(1).AddDays(-1);
+
             var events = _eventRepository.FindEventsByDatesAndParentId(From, To, ParentId);
-            return events.Select(x => new EventModel(x)).ToList();
+            return new BillSummaryModel(ParentId, events.Count, From, To);
         }
     }
 }

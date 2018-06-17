@@ -23,7 +23,6 @@ namespace NIHApp.Implementation.Presentation.RestModels
             EvtType = _event.EvtType;
             EvtLongitude = _event.EvtLongitude;
             EvtLatitude = _event.EvtLatitude;
-            EvtNotification = _event.EvtNotification;
         }
 
         public long EvtID { get; set; }
@@ -35,6 +34,5 @@ namespace NIHApp.Implementation.Presentation.RestModels
         public string EvtType { get; set; }
         public string EvtLongitude { get; set; }
         public string EvtLatitude { get; set; }
-        public bool EvtNotification { get; set; }
     }
 }

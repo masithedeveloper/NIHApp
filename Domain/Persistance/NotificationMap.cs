@@ -19,6 +19,7 @@ namespace NIHApp.Domain.Persistance
             Map(x => x.NotPersonId).Column("NotPersonId");
             Map(x => x.NotTimeCreated).Column("NotTimeCreated");
             Map(x => x.NotIsSent).Column("NotIsSent");
+            Map(x => x.NotEventId).Column("NotEventId");
         }
     }
 }

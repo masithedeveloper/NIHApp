@@ -26,8 +26,8 @@ namespace NIHApp.Infrastructure.Criteria
         public ICriteria Criteria(ISession session)
         {
             return session.CreateCriteria(typeof(Event))
-                 .Add(Restrictions.Ge("EvtDateCreated", _from))
-                 .Add(Restrictions.Ge("This needs to be now ", _to))
+                 .Add(Restrictions.Ge("EvtDateCreated", _from)) // this is the first of the current month
+                 .Add(Restrictions.Le("EvtDateCreated", _to)) // this is now
                   .Add(Restrictions.Eq("EvtParentId", _parentId));
         }
     }

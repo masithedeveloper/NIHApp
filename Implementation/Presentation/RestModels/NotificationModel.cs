@@ -16,6 +16,7 @@ namespace NIHApp.Implementation.Presentation.RestModels
             NotIsSent = notification.NotIsSent;
             NotPersonId = notification.NotPersonId;
             NotTimeCreated = notification.NotTimeCreated;
+            NotEventId = notification.NotEventId;
         }
 
         public NotificationModel()
@@ -26,7 +27,8 @@ namespace NIHApp.Implementation.Presentation.RestModels
         public long ObjectId { get; set; }
         public string NotMessage { get; set; }
         public bool NotIsSent { get; set; }
-        public int NotPersonId { get; set; }
+        public long NotPersonId { get; set; }
         public DateTime NotTimeCreated { get; set; }
+        public long NotEventId { get; set; }
     }
 }

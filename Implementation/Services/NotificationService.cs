@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NIHApp.Domain.Entities;
 using NIHApp.Implementation.Interfaces;
 using NIHApp.Implementation.Presentation.RestModels;
 using NIHApp.Infrastructure.Interfaces;
@@ -14,10 +15,33 @@ namespace NIHApp.Implementation.Services
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository;
+        private readonly IEventRepository _eventRepository;
         //-----------------------------------------------------------------------------------------------------------    
-        public NotificationService(INotificationRepository notificationRepository)
+        public NotificationService(INotificationRepository notificationRepository, IEventRepository eventRepository)
         {
             _notificationRepository = notificationRepository;
+            _eventRepository = eventRepository;
+        }
+
+        public NotificationModel CreateNotification(NotificationModel notificationModel)
+        {
+            var _notification = new Notification
+            {
+                NotId = notificationModel.NotPersonId,
+                NotMessage = notificationModel.NotMessage,
+                NotIsSent = notificationModel.NotIsSent,
+                NotPersonId = notificationModel.NotPersonId,
+                NotEventId = notificationModel.NotEventId,
+                NotTimeCreated = DateTime.Now
+            };
+
+            using (var transaction = _eventRepository.Session.BeginTransaction())
+            {
+                _notificationRepository.Save(_notification);
+                transaction.Commit();
+            }
+
+            return new NotificationModel(_notification);
         }
 
         //-----------------------------------------------------------------------------------------------------------
@@ -28,7 +52,7 @@ namespace NIHApp.Implementation.Services
         }
 
         //-----------------------------------------------------------------------------------------------------------
-        public async Task<bool> NotifyAsync(string to, string title, string body)
+        public async Task<bool> NotifyAsync(string to, string Title, string Body, EventModel eventModel)
         {
             try
             {
@@ -41,7 +65,7 @@ namespace NIHApp.Implementation.Services
                 var data = new
                 {
                     to, // Recipient device token
-                    notification = new { title, body }
+                    notification = new { Title, Body }
                 };
 
                 // Using Newtonsoft.Json
@@ -57,16 +81,29 @@ namespace NIHApp.Implementation.Services
                     {
                         var result = await httpClient.SendAsync(httpRequest);
 
+                        var isSent = false;
+                        
+
                         if (result.IsSuccessStatusCode)
                         {
+                            isSent = true;
                             return true;
                         }
                         else
                         {
-                            // Use result.StatusCode to handle failure
-                            // Your custom error handler here
-                            //_logger.LogError($"Error sending notification. Status Code: {result.StatusCode}");
+                            isSent = false;
                         }
+
+                        var notification = new NotificationModel
+                        {
+                            NotMessage = Body,
+                            NotIsSent = isSent,
+                            NotPersonId = eventModel.EvtParentId,
+                            NotTimeCreated = DateTime.Now,
+                            NotEventId = eventModel.EvtID
+                        };
+
+                        CreateNotification(notification);
                     }
                 }
             }

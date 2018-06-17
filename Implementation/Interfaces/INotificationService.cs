@@ -10,5 +10,7 @@ namespace NIHApp.Implementation.Interfaces
     public interface INotificationService
     {
         IList<NotificationModel> GetNotificationsByParentId(long parentId);
+        NotificationModel CreateNotification(NotificationModel notificationModel);
+        Task<bool> NotifyAsync(string to, string title, string body, EventModel eventModel);
     }
 }

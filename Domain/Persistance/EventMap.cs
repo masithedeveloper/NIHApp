@@ -23,7 +23,6 @@ namespace NIHApp.Domain.Persistance
             Map(x => x.EvtTripFromHome).Column("EvtTripFromHome");
             Map(x => x.EvtLongitude).Column("EvtLongitude");
             Map(x => x.EvtLatitude).Column("EvtLatitude");
-            Map(x => x.EvtNotification).Column("EvtNotification");
         }
     }
 }

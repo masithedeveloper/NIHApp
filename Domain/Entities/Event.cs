@@ -13,6 +13,5 @@ namespace NIHApp.Domain.Entities
         public virtual string EvtType { get; set; }
         public virtual string EvtLongitude { get; set; }
         public virtual string EvtLatitude { get; set; }
-        public virtual bool EvtNotification { get; set; }
     }
 }

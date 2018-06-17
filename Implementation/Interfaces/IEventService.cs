@@ -9,6 +9,7 @@ namespace NIHApp.Implementation.Interfaces
 {
     public interface IEventService
     {
-        IList<EventModel> GetEventsByDatesAndParentId(DateTime From, DateTime To, long ParentId);
+        BillSummaryModel GetTripsBillForTheCurrentMonth(long ParentId);
+        EventModel CreateEvent(EventModel eventModel);
     }
 }
