@@ -17,7 +17,7 @@ namespace NIHApp.Implementation.Services
         private readonly ITransportRepository _transportRepository;
         private readonly IDeviceRepository _deviceRepository;
         private readonly ISessionRepository _sessionRepository;
-        private readonly Random _random;
+        //private readonly Random _random;
 
         public TransportService(ITransportRepository transportRepository, IDeviceRepository deviceRepository, ISessionRepository sessionRepository)
         {

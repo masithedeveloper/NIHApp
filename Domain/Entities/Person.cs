@@ -31,7 +31,7 @@ namespace NIHApp.Domain.Entities
         public virtual bool PerEmailVerified { get; set; }
         public virtual IList<Session> Sessions { get; set; }
 		public virtual IList<Device> Devices { get; set; }
-		public virtual int PerTransportId { get; set; }
+		public virtual long PerTransportId { get; set; }
 		public virtual string PerCellPhone { get; set; }
 		public virtual bool PerIsLocked
 		{

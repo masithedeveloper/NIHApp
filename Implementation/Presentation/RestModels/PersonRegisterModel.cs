@@ -12,8 +12,8 @@ namespace NIHApp.Implementation.Presentation.RestModels
 
 		public PersonRegisterModel(Person person) : base(person)
 		{
-            Name = person.PerFirstname;
-            Surname = person.PerLastname;
+            PerFirstname = person.PerFirstname;
+            PerLastname = person.PerLastname;
             Password = person.PerPassword;
             EmailAddress = person.PerEmail;
 		}

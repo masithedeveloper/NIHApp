@@ -21,6 +21,12 @@ namespace NIHApp.Implementation.Container
             For(typeof(ITransportRepository)).Use(typeof(TransportRepository));
             For(typeof(ITransportService)).Use(typeof(TransportService));
 
+            For(typeof(IEventRepository)).Use(typeof(EventRepository));
+            For(typeof(IEventService)).Use(typeof(EventService));
+
+            For(typeof(INotificationRepository)).Use(typeof(NotificationRepository));
+            For(typeof(INotificationService)).Use(typeof(NotificationService));
+
             For(typeof(ISessionService)).Use(typeof(SessionService));
 			For(typeof(ISessionRepository)).Use(typeof(SessionRepository));
             

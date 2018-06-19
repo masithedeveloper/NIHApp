@@ -142,8 +142,8 @@ namespace NIHApp.Implementation.Services
 		{
 			var person = new Person
 			{	
-                PerFirstname = personRegisterModel.Name,
-                PerLastname = personRegisterModel.Surname,
+                PerFirstname = personRegisterModel.PerFirstname,
+                PerLastname = personRegisterModel.PerLastname,
                 PerEmail = personRegisterModel.EmailAddress,
                 PerPassword = personRegisterModel.Password, // remove this as a later stage
                 PerHashPassword = AuthenticationHelper.GetPasswordHash(personRegisterModel.EmailAddress, personRegisterModel.Password),
@@ -183,7 +183,7 @@ namespace NIHApp.Implementation.Services
 
 		public PersonRegisterModel UpgradePerson(PersonRegisterModel personRegisterModel)
 		{
-			var personList = _personRepository.FindPersonByEmail(personRegisterModel.Email);
+			var personList = _personRepository.FindPersonByEmail(personRegisterModel.PerEmailAddress);
 
 			foreach (var person in personList)
 				DeletePerson(person.Id);
@@ -198,20 +198,20 @@ namespace NIHApp.Implementation.Services
 		/// <returns>Updated Registered Person</returns>
 		public PersonRegisterModel UpdatePerson(PersonRegisterModel personRegisterModel)
 		{
-			var person = _personRepository.Get(personRegisterModel.ObjectId);
-			var scheduledEmail = (ScheduledEmail)_scheduledEmailService.GetScheduledEmailsByPersonId(personRegisterModel.ObjectId).FirstOrNull();
+			var person = _personRepository.Get(personRegisterModel.PerId);
+			var scheduledEmail = (ScheduledEmail)_scheduledEmailService.GetScheduledEmailsByPersonId(personRegisterModel.PerId).FirstOrNull();
 
 			// Verification Code Email exception occured
-			if ((scheduledEmail != null) && !scheduledEmail.SchReady && !scheduledEmail.SchEmailed && (person.PerEmail == personRegisterModel.Email))
+			if ((scheduledEmail != null) && !scheduledEmail.SchReady && !scheduledEmail.SchEmailed && (person.PerEmail == personRegisterModel.PerEmailAddress))
 			{
 				throw new Exception("Email Error");
 			}
 
-			person.PerEmail = personRegisterModel.Email;
-			person.PerFirstname = personRegisterModel.Name;
-			person.PerLastname = personRegisterModel.Surname;
+			person.PerEmail = personRegisterModel.PerEmailAddress;
+			person.PerFirstname = personRegisterModel.PerFirstname;
+			person.PerLastname = personRegisterModel.PerLastname;
 			//person.PerIdNumber = personRegisterModel.;
-			person.PerHashPassword = AuthenticationHelper.GetPasswordHash(personRegisterModel.Email, personRegisterModel.Password);
+			person.PerHashPassword = AuthenticationHelper.GetPasswordHash(personRegisterModel.PerEmailAddress, personRegisterModel.Password);
 			//person.VerifyCode = 9999;
 			person.PerVerifyCode = (short)_random.Next(1000, 9999);
 			person.CreateDate = personRegisterModel.CreateDate;
@@ -244,9 +244,9 @@ namespace NIHApp.Implementation.Services
 
 		public PersonModel UpdatePerson(PersonModel personModel)
 		{
-			var person = _personRepository.Get(personModel.ObjectId);
-			person.PerFirstname = personModel.Name;
-			person.PerLastname = personModel.Surname;
+			var person = _personRepository.Get(personModel.PerId);
+			person.PerFirstname = personModel.PerFirstname;
+			person.PerLastname = personModel.PerLastname;
 			person.ModifiedDate = personModel.ModifiedDate;
 
 			using (var transaction = _personRepository.Session.BeginTransaction())
