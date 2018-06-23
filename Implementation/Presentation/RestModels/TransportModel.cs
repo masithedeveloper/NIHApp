@@ -17,9 +17,9 @@ namespace NIHApp.Implementation.Presentation.RestModels
             Registration = transport.TraRegistration;
         }
 
-        public virtual long Id { get; set; }
-        public virtual string Registration { get; set; }
-        public virtual string Make { get; set; }
-        public virtual string Model { get; set; }
+        public  long Id { get; set; }
+        public  string Registration { get; set; }
+        public  string Make { get; set; }
+        public  string Model { get; set; }
     }
 }

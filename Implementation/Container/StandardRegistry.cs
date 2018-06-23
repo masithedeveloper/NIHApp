@@ -40,7 +40,9 @@ namespace NIHApp.Implementation.Container
             For(typeof(IScheduledEmailRepository)).Use(typeof(ScheduledEmailRepository));
 
             For(typeof(IEmailNotificationService)).Use(typeof(EmailNotificationService));
-           
+
+            For(typeof(ISMSService)).Use(typeof(SMSService));
+
         }
 	}
 }
