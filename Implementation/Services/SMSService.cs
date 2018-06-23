@@ -15,9 +15,10 @@ namespace NIHApp.Implementation.Services
 {
     public class SMSService : ISMSService
     {
+        string zoomBaseUrl = "https://zoomconnect.com/app";
         string email_address = "nihapp01@gmail.com";
         string token = "1b0fc83b-ba74-4ef7-b714-9a581ddb28f7";
-
+        
         public SMSService(){
 
         }
@@ -25,7 +26,6 @@ namespace NIHApp.Implementation.Services
         {
 
             var client = new RestClient();
-            string zoomBaseUrl = "https://www.zoomconnect.com/app/";
             string zoomApiMethod = "api/rest/v1/account/balance";
 
             client.BaseUrl = new Uri(zoomBaseUrl);
@@ -43,7 +43,6 @@ namespace NIHApp.Implementation.Services
         public string sendSingleMessage(SMSModel sms)
         {
             var client = new RestClient();
-            string zoomBaseUrl = "https://zoomconnect.com/app";
             string zoomApiMethod = "/api/rest/v1/sms/send";
 
             client.BaseUrl = new Uri(zoomBaseUrl);
@@ -65,7 +64,6 @@ namespace NIHApp.Implementation.Services
         {
 
             var client = new RestClient();
-            string zoomBaseUrl = "https://zoomconnect.com/app";
             string zoomApiMethod = "/api/rest/v1/sms/send-bulk.json";
 
             client.BaseUrl = new Uri(zoomBaseUrl);
@@ -89,7 +87,6 @@ namespace NIHApp.Implementation.Services
         {
 
             var client = new RestClient();
-            string zoomBaseUrl = "https://zoomconnect.com/app";
             string zoomApiMethod = "/api/rest/v1/account/transfer";
 
             client.BaseUrl = new Uri(zoomBaseUrl);
