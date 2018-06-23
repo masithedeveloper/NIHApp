@@ -28,7 +28,7 @@ namespace NIHApp.RestApi.Controllers
 				throw new ApiSecurityException();
             
 			return _eventService.GetTripsBillForTheCurrentMonth(parentId);
-        }
+		}
 
 		[HttpPost]
 		public EventModel Create(EventModel eventModel)
