@@ -34,8 +34,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailProcessor", "EmailProcessor\EmailProcessor.csproj", "{C4059EAB-2666-41DF-A34A-56EC089A591D}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NIHApp.Database", "NIHApp.Database\NIHApp.Database.sqlproj", "{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,12 +60,6 @@ Global
 		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4059EAB-2666-41DF-A34A-56EC089A591D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4914E62-9AC9-4D5A-B7BC-6FB45F12A0F2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,7 +70,7 @@ Global
 		{C4059EAB-2666-41DF-A34A-56EC089A591D} = {6AA17832-8D36-4293-BD06-6E10728762C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {011B7D88-03BF-4020-9414-BF569C0F00A8}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.0\lib\NET45
+		SolutionGuid = {011B7D88-03BF-4020-9414-BF569C0F00A8}
 	EndGlobalSection
 EndGlobal

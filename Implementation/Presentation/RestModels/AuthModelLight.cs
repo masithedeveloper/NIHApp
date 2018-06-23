@@ -7,5 +7,7 @@
 		public string Password { get; set; }
 		public string SessionKey { get; set; }
 		public long PersonId { get; set; }
+		public bool PersonType { get; set; }
+		public string PersonFullName { get; set; }
 	}
 }

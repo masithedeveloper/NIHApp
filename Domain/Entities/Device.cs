@@ -10,5 +10,6 @@ namespace NIHApp.Domain.Entities
         public virtual string DevFirebaseToken { get; set; }
 		public virtual string DevPlatform { get; set; }
         public virtual string DevOSVersion { get; set; }
+        public virtual string DevClientId { get; set; }
     }
 }

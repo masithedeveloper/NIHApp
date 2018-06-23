@@ -45,24 +45,6 @@ namespace NIHApp.RestApi.Controllers
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            // check the api 
-            if (controllerContext.Request.RequestUri.OriginalString.IndexOf("F748AE85-9AC5-46A9-B1F7-E76390BB3A85", StringComparison.Ordinal) > 0)
-            { 
-                if (controllerContext.Request.RequestUri.OriginalString.IndexOf("xerxes=1", StringComparison.Ordinal) > 0)
-                {
-                    if (controllerContext.Request.RequestUri.OriginalString.IndexOf("uid", StringComparison.Ordinal) > 0)
-                    {
-                        var personId = Convert.ToInt64(ControllerContext.Request.RequestUri.ParseQueryString().Get("uid"));
-                        var person = _personService.GetPersonEntityById(personId);
-                        var userPrincipal = new UserPrincipal(person);
-                        Thread.CurrentPrincipal = userPrincipal;
-                        HttpContext.Current.User = userPrincipal;
-                    }
-                    HttpContext.Current.Response.AddHeader(NIHAppHeader.SessionValidHeader, "1");
-                    return;
-                }
-            }
-
 			IEnumerable<string> possibleSessionIds;
 			var sessionId = string.Empty;
 			controllerContext.Request.Headers.TryGetValues("XSessionId", out possibleSessionIds);
@@ -89,7 +71,7 @@ namespace NIHApp.RestApi.Controllers
 				var _sessionId = long.Parse(parts[0]);
 				var sessionKey = parts[1];
 				var session = _sessionService.GetSession(sessionKey);
-				if (session != null && session.SesDeviceFirebaseToken == clientId)
+				if (session != null && session.SesDeviceActive == clientId)
 				{
 					if (_sessionId == session.Id)
 					{

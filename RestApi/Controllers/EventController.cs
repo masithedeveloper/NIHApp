@@ -18,39 +18,34 @@ namespace NIHApp.RestApi.Controllers
 		}
 
 		[HttpGet]
-		public BillSummaryModel GetTripsBillForTheCurrentMonth(long parentID)
+		public BillSummaryModel GetTripsBillForTheCurrentMonth(long parentId)
 		{
-			var person = _personService.GetPersonById(parentID);
+			var person = _personService.GetPersonById(parentId);
 			if (person == null)
 				throw new InvalidDataException("Parent does not exist.");
 
-			if (!IsValidPersonRequest(parentID))
+			if (!IsValidPersonRequest(parentId))
 				throw new ApiSecurityException();
-
-			var billSummaryModel = _eventService.GetTripsBillForTheCurrentMonth(parentID);
-
-			return billSummaryModel;
-		}
+            
+			return _eventService.GetTripsBillForTheCurrentMonth(parentId);
+        }
 
 		[HttpPost]
 		public EventModel Create(EventModel eventModel)
 		{
             // check for driver
-			var driver = _personService.GetPersonById(eventModel.EvtDrivertId);
+			var driver = _personService.GetPersonById(eventModel.EvtDriverId);
 			if (driver == null)
 				throw new InvalidDataException("Driver does not exist.");
 
-			if (!IsValidPersonRequest(eventModel.EvtDrivertId))
+			if (!IsValidPersonRequest(eventModel.EvtDriverId))
 				throw new ApiSecurityException();
 
             // check for parent
             var parent = _personService.GetPersonById(eventModel.EvtParentId);
             if (parent == null)
                 throw new InvalidDataException("parent does not exist.");
-
-            if (!IsValidPersonRequest(eventModel.EvtParentId))
-                throw new ApiSecurityException();
-
+            
             var _event = _eventService.CreateEvent(eventModel); // create event service 
 
 			return _event;

@@ -15,7 +15,8 @@ namespace NIHApp.Implementation.Presentation.RestModels
         {
             ParentId = parentId;
             NumberOfTrips = numberOfTrips;
-            TotalCost = numberOfTrips * 50; // move to DB 
+            RatePerTrip = 50;
+            TotalCost = numberOfTrips * RatePerTrip; // move to DB 
             From = from;
             To = to;
         }
