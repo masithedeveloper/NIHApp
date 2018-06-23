@@ -74,6 +74,21 @@ Infrastructure/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10B
 .vs/NIHApp/v15/Server/sqlite3/storage.ide
 .vs/NIHApp/v15/Server/sqlite3/storage.ide-wal
 .vs/slnx.sqlite
+<<<<<<< HEAD
+.vs/NIHApp/v15/Server/sqlite3/storage.ide-shm
+.vs/slnx.sqlite
+.vs/NIHApp/v15/Server/sqlite3/storage.ide
+.vs/NIHApp/v15/Server/sqlite3/storage.ide-wal
+.vs/NIHApp/v15/.suo
+.vs/NIHApp/DesignTimeBuild/.dtbcache
+.vs/NIHApp/v15/Server/sqlite3/storage.ide-wal
+.vs/NIHApp/v15/Server/sqlite3/storage.ide
+.vs/NIHApp/DesignTimeBuild/.dtbcache
+.vs/NIHApp/v15/.suo
+.vs/NIHApp/v15/Server/sqlite3/storage.ide
+.vs/NIHApp/v15/Server/sqlite3/storage.ide-wal
+.vs/slnx.sqlite
+=======
 .vs/NIHApp/v15/Server/sqlite3/storage.ide
 .vs/config/applicationhost.config
 .vs/NIHApp/v15/.suo
@@ -84,6 +99,7 @@ Infrastructure/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10B
 Implementation/Services/NotificationService.cs~RFaf54b94.TMP
 NIHApp.Database/bin/Debug/NIHApp.Database.dacpac
 RestApi/Controllers/PersonController.cs~RF11f09ec1.TMP
+<<<<<<< HEAD
 .vs/NIHApp/v15/Server/sqlite3/storage.ide
 .vs/NIHApp/v15/Server/sqlite3/storage.ide-wal
 NIHApp.Database/NIHApp.Database.dbmdl
@@ -93,3 +109,6 @@ NIHApp.Database/NIHApp.Database.dbmdl
 .vs/NIHApp/v15/Server/sqlite3/storage.ide-shm
 .vs/NIHApp/v15/Server/sqlite3/storage.ide-wal
 .vs/VSWorkspaceState.json
+=======
+>>>>>>> 12d45afbccbcadd83eddd09db81297fe08882cd4
+>>>>>>> ff811e3f6d8b543b84fb5a4fbacb466f484506e7
