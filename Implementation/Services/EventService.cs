@@ -16,7 +16,9 @@ namespace NIHApp.Implementation.Services
         private IEventRepository _eventRepository;
         private INotificationService _notificationService;
         private IDeviceRepository _deviceRepository;
-        
+        private IPersonService _personService;
+        private ISMSService _smsService;
+
         public EventService(IEventRepository eventRepository, INotificationService notificationService, IDeviceRepository deviceRepository)
         {
             _eventRepository = eventRepository;
@@ -74,6 +76,15 @@ namespace NIHApp.Implementation.Services
             foreach (DeviceModel device in devices.Select(x => new DeviceModel(x)).ToList()) {
                 _notificationService.NotifyAsync(device.DeviceCode, _event.EvtType, MessageBody, newEventModel);
             }
+            PersonModel personModel =  _personService.GetPersonById(_event.EvtParentId);
+            var smsModel = new SMSModel
+            {
+                message = MessageBody,
+                dateToSend = Now.ToString(),
+                recipientNumber = personModel.PerCellPhone
+            };
+
+            _smsService.sendSingleMessage(smsModel);
             return newEventModel;
         }
 
