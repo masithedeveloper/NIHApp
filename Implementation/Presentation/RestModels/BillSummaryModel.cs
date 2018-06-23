@@ -21,11 +21,11 @@ namespace NIHApp.Implementation.Presentation.RestModels
             To = to;
         }
 
-        private long ParentId { get; set; }
-        private int NumberOfTrips { get; set; }
-        private double TotalCost { get; set; }
-        private double RatePerTrip { get; set; }
-        private DateTime From { get; set; }
-        private DateTime To { get; set; }
+        public long ParentId { get; set; }
+        public int NumberOfTrips { get; set; }
+        public double TotalCost { get; set; }
+        public double RatePerTrip { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }
