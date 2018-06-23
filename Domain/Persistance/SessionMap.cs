@@ -8,7 +8,7 @@ namespace NIHApp.Domain.Persistance
 		public SessionMap()
 		{
 			Table("Session");
-			Id(x => x.SesId).GeneratedBy.Identity().Column("SesId");
+			Id(x => x.Id).GeneratedBy.Identity().Column("SesId");
 			Map(x => x.SesKey).Column("SesKey");
             Map(x => x.SesDeviceActive).Column("SesDeviceActive");
             Map(x => x.SesPersonId).Column("SesPersonId");

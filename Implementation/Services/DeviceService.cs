@@ -45,6 +45,7 @@ namespace NIHApp.Implementation.Services
 				DevFirebaseToken = deviceModel.DeviceCode,
 				Person = _personRepository.Get(deviceModel.PersonId),
 				DevOSVersion = deviceModel.DeviceDescription,
+				DevPlatform = deviceModel.OS,
 				CreateDate = DateTime.Now,
 				ModifiedDate = DateTime.Now
 			};

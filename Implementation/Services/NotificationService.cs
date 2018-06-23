@@ -80,10 +80,8 @@ namespace NIHApp.Implementation.Services
                     using (var httpClient = new HttpClient())
                     {
                         var result = await httpClient.SendAsync(httpRequest);
-
                         var isSent = false;
-                        
-
+                
                         if (result.IsSuccessStatusCode)
                         {
                             isSent = true;
@@ -109,7 +107,7 @@ namespace NIHApp.Implementation.Services
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Exception thrown in Notify Service: {ex}");
+                System.Console.WriteLine(ex.Message);
             }
 
             return false;

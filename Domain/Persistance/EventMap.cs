@@ -15,7 +15,7 @@ namespace NIHApp.Domain.Persistance
             Table("Event");
             LazyLoad();
             Id(x => x.EvtID).GeneratedBy.Identity().Column("EvtID");
-            Map(x => x.EvtDrivertId).Column("EvtDrivertId");
+            Map(x => x.EvtDriverId).Column("EvtDriverId");
             Map(x => x.EvtParentId).Column("EvtParentId");
             Map(x => x.EvtType).Column("EvtType");
             Map(x => x.EvtPickUpTime).Column("EvtPickUpTime");
@@ -23,6 +23,7 @@ namespace NIHApp.Domain.Persistance
             Map(x => x.EvtTripFromHome).Column("EvtTripFromHome");
             Map(x => x.EvtLongitude).Column("EvtLongitude");
             Map(x => x.EvtLatitude).Column("EvtLatitude");
+            Map(x => x.EvtDateCreated).Column("EvtDateCreated");
         }
     }
 }

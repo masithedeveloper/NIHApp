@@ -152,7 +152,7 @@ namespace NIHApp.Implementation.Services
 				CreateDate = DateTime.Now,
 				ModifiedDate = DateTime.Now,
                 PerDob = DateTime.Now,
-                PerType = false,
+                PerType = personRegisterModel.PerType,
                 PerEmailVerified = true
             };
 

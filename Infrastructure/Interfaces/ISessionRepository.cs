@@ -8,6 +8,5 @@ namespace NIHApp.Infrastructure.Interfaces
 		Session GetSessionByKey(string key);
 
 		IList<Session> FindApiSessionByPersonId(long personId);
-
 	}
 }

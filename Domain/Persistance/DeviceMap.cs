@@ -10,6 +10,7 @@ namespace NIHApp.Domain.Persistance
 			Table("Device");
 			LazyLoad();
 			Id(x => x.Id).GeneratedBy.Identity().Column("DevId");
+			Map(x => x.DevClientId).Column("DevClientId");
 			Map(x => x.DevFirebaseToken).Column("DevFirebaseToken");
 			Map(x => x.DevPlatform).Column("DevPlatform");
 			Map(x => x.DevOSVersion).Column("DevOSVersion");

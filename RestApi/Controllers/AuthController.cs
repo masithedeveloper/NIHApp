@@ -15,22 +15,22 @@ using NIHApp.Implementation.Services;
 
 namespace NIHApp.RestApi.Controllers
 {
-	public class AuthController : ApiController
-	{
-		private readonly ISessionService _sessionService;
-		private readonly IAuthenticationService _authenticationService;
-		private readonly IPersonService _personService;
-		private readonly IDeviceService _deviceService;
-	   
+    public class AuthController : ApiController
+    {
+        private readonly ISessionService _sessionService;
+        private readonly IAuthenticationService _authenticationService;
+        private readonly IPersonService _personService;
+        private readonly IDeviceService _deviceService;
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		public AuthController(ISessionService sessionService, IPersonService personService, IAuthenticationService authenticationService, IDeviceService deviceService)
-		{
-			_sessionService = sessionService;
-			_personService = personService;
-			_authenticationService = authenticationService;
-			_deviceService = deviceService;
-		}
-       
+        public AuthController(ISessionService sessionService, IPersonService personService, IAuthenticationService authenticationService, IDeviceService deviceService)
+        {
+            _sessionService = sessionService;
+            _personService = personService;
+            _authenticationService = authenticationService;
+            _deviceService = deviceService;
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPost]
 		public AuthModelLight VerifyByPost(AuthModelLight authCredentials)
@@ -38,11 +38,14 @@ namespace NIHApp.RestApi.Controllers
 			try
 			{
 				var personId = _authenticationService.Validate(authCredentials.EmailAddress, authCredentials.Password);
+                var personObject = _personService.GetPersonById(personId);
 				var session = CreateApiSession(personId);
 				authCredentials.SessionKey = Encryption.DesEncrypt(session.Id + "|" + session.SesKey + "|" + DateTime.Now.Ticks);
 				authCredentials.PersonId = personId;
-				authCredentials.Desc = "Authorized";
-			}
+				authCredentials.Desc = "Logged in successfully";
+                authCredentials.PersonType = personObject.PerType;
+                authCredentials.PersonFullName = personObject.PerFirstname + " " + personObject.PerLastname;
+            }
 			catch (Exception e)
 			{
 				authCredentials.PersonId = 0;
@@ -82,22 +85,22 @@ namespace NIHApp.RestApi.Controllers
 						personRegisterModel = _personService.CreatePerson(personRegisterModel);
 						AuthModelLight authModelLight = new AuthModelLight
 						{
-							Desc = "Pending Registration...",
-                            PersonId = personRegisterModel.ObjectId,
+							Desc = "Registered successfully...",
+                            PersonId = personRegisterModel.PerId,
 							EmailAddress = personRegisterModel.EmailAddress,
 							Password = null, //don't need it here
 							SessionKey = null // don't need it here
 						};
 
 						// Create Device
-						/*DeviceModel deviceModel = new DeviceModel
+						DeviceModel deviceModel = new DeviceModel
 						{
-							PersonId = personRegisterModel.ObjectId,
-							DeviceCode = personRegisterModel.DeviceCode,
+							PersonId = personRegisterModel.PerId,
+							DeviceCode = personRegisterModel.DeviceCode, // firebase token
 							DeviceDescription = personRegisterModel.DeviceDescription,
 							OS = personRegisterModel.OS
 						};
-						_deviceService.CreateDevice(deviceModel);*/
+						_deviceService.CreateDevice(deviceModel);
 
 						return authModelLight;
 					}
@@ -130,7 +133,7 @@ namespace NIHApp.RestApi.Controllers
 				{
 					Desc = errorInfo,
                     PersonId = 0,
-					EmailAddress = personRegisterModel.Email,
+					EmailAddress = personRegisterModel.PerEmailAddress,
 					Password = null,
 					SessionKey = null
 				};
@@ -141,7 +144,7 @@ namespace NIHApp.RestApi.Controllers
 				{
 					Desc = e.Message,
                     PersonId = 0,
-					EmailAddress = personRegisterModel.Email,
+					EmailAddress = personRegisterModel.PerEmailAddress,
 					Password = null,
 					SessionKey = null
 				};
@@ -157,10 +160,10 @@ namespace NIHApp.RestApi.Controllers
                 var person = _personService.GetPersonByEmail(emailAddress);
                 if (person == null)
                     throw new InvalidDataException("Person does not exist.");
-                if (!_personService.IsVerified(person.ObjectId))
+                if (!_personService.IsVerified(person.PerId))
                     throw new InvalidDataException(ApplicationConfiguration.RegisterEmailNotVerified);
 
-                _personService.ChangePassword(person.ObjectId);
+                _personService.ChangePassword(person.PerId);
             }
             else
                 throw new InvalidDataException(ApplicationConfiguration.RegisterEmailInvalid);

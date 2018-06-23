@@ -8,6 +8,7 @@ namespace NIHApp.Implementation.Presentation.RestModels
 		public DeviceModel(Device device)
 		{
 			ObjectId = device.Id;
+            DevClientId = device.DevClientId;
 			DeviceCode = device.DevFirebaseToken;
 			DeviceDescription = device.DevOSVersion;
 			PersonId = device.Person.Id;
@@ -23,6 +24,7 @@ namespace NIHApp.Implementation.Presentation.RestModels
 		public string DeviceCode { get; set; }
 		public string DeviceDescription { get; set; }
 		public string OS { get; set; }
+		public string DevClientId { get; set; }
 		public long PersonId { get; set; }
 		public DateTime? CreateDate { get; set; }
 		public DateTime? ModifiedDate { get; set; }

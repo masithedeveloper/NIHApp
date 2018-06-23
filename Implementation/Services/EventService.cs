@@ -26,16 +26,37 @@ namespace NIHApp.Implementation.Services
 
         public EventModel CreateEvent(EventModel eventModel)
         {
+            var MessageBody = ""; // SMS/Notification message body
+            var Now = DateTime.Now;
+            if (eventModel.EvtType.ToString().ToLower().Equals(EventType.PickUp.ToString().ToLower()))
+            {   
+                if (eventModel.EvtTripFromHome)
+                    MessageBody = "Your child has been picked up from home at " + Now;
+                else
+                    MessageBody = "Your child has been picked up from school at " + Now;
+                eventModel.EvtPickUpTime = Now;
+            }
+
+            else if (eventModel.EvtType.ToString().ToLower().Equals(EventType.DropOff.ToString().ToLower()))
+            {
+                if (eventModel.EvtTripFromHome)
+                    MessageBody = "Your child has been dropped off from home at " + Now;
+                else
+                    MessageBody = "Your child has been dropped off from school at " + Now;
+                eventModel.EvtDropOffTime = Now;
+            }
+
             var _event = new Event
             {
                 EvtParentId = eventModel.EvtParentId,
-                EvtDrivertId = eventModel.EvtDrivertId,
-                EvtPickUpTime = eventModel.EvtPickUpTime,
-                EvtDropOffTime = eventModel.EvtDropOffTime,
+                EvtDriverId = eventModel.EvtDriverId,
+                EvtPickUpTime = eventModel.EvtPickUpTime, // could be null depending on event type
+                EvtDropOffTime = eventModel.EvtDropOffTime, // could be null depending on event type
                 EvtTripFromHome = eventModel.EvtTripFromHome,
                 EvtType = eventModel.EvtType,
-                EvtLongitude = eventModel.EvtLongitude,
+                EvtLongitude = eventModel.EvtLongitude, // these depend on the device location service, will be implemented in 2nd phase  
                 EvtLatitude = eventModel.EvtLatitude,
+                EvtDateCreated = Now,
             };
 
             using (var transaction = _eventRepository.Session.BeginTransaction())
@@ -47,26 +68,11 @@ namespace NIHApp.Implementation.Services
             var newEventModel = new EventModel(_event);
 
             // send a notifocation 
-            var Body = "";
-            if (_event.EvtType.Equals(EventType.PickUp)) {
-                if(_event.EvtTripFromHome)
-                    Body = "Your child has been picked up from home at " + _event.EvtPickUpTime;
-                else
-                    Body = "Your child has been picked up from school at " + _event.EvtPickUpTime;
-            }
 
-            else if (_event.EvtType.Equals(EventType.DropOff))
-            {
-                if (_event.EvtTripFromHome)
-                    Body = "Your child has been dropped off from home at " + _event.EvtDropOffTime;
-                else
-                    Body = "Your child has been dropped off from school at " + _event.EvtDropOffTime;
-            }
-
-            // check if the device is not empty
+            // check if the device is exist
             IList<Device> devices = _deviceRepository.FindDevicesByPersonId(_event.EvtParentId);
             foreach (DeviceModel device in devices.Select(x => new DeviceModel(x)).ToList()) {
-                _notificationService.NotifyAsync(device.DeviceCode, _event.EvtType, Body, newEventModel);
+                _notificationService.NotifyAsync(device.DeviceCode, _event.EvtType, MessageBody, newEventModel);
             }
             return newEventModel;
         }
