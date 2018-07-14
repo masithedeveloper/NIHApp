@@ -133,6 +133,12 @@ namespace NIHApp.Implementation.Services
             return persons.Select(x => new PersonModel(x)).ToList();
         }
 
+        public IList<PersonModel> GetDriversByType()
+        {
+            var persons = _personRepository.FindDriversByType();
+            return persons.Select(x => new PersonModel(x)).ToList();
+        }
+
         /// <summary>
         /// Person Registration
         /// </summary>
@@ -140,21 +146,22 @@ namespace NIHApp.Implementation.Services
         /// <returns>Registered Person</returns>
         public PersonRegisterModel CreatePerson(PersonRegisterModel personRegisterModel)
 		{
-			var person = new Person
-			{	
+            var person = new Person
+            {
                 PerFirstname = personRegisterModel.PerFirstname,
                 PerLastname = personRegisterModel.PerLastname,
                 PerCellPhone = personRegisterModel.PerCellPhone,
                 PerEmail = personRegisterModel.EmailAddress,
                 PerPassword = personRegisterModel.Password, // remove this as a later stage
                 PerHashPassword = AuthenticationHelper.GetPasswordHash(personRegisterModel.EmailAddress, personRegisterModel.Password),
-				//VerifyCode = 9999,
-				PerVerifyCode = (short)_random.Next(1000, 9999),
-				CreateDate = DateTime.Now,
-				ModifiedDate = DateTime.Now,
+                //VerifyCode = 9999,
+                PerVerifyCode = (short)_random.Next(1000, 9999),
+                CreateDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
                 PerDob = DateTime.Now,
                 PerType = personRegisterModel.PerType,
-                PerEmailVerified = true
+                PerEmailVerified = true,
+                PerTransportId = personRegisterModel.PerTransportId
             };
 
 			using (var transaction = _personRepository.Session.BeginTransaction())

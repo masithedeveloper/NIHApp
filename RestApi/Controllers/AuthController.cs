@@ -33,67 +33,68 @@ namespace NIHApp.RestApi.Controllers
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPost]
-		public AuthModelLight VerifyByPost(AuthModelLight authCredentials)
-		{
-			try
-			{
-				var personId = _authenticationService.Validate(authCredentials.EmailAddress, authCredentials.Password);
+        public AuthModelLight VerifyByPost(AuthModelLight authCredentials)
+        {
+            try
+            {
+                var personId = _authenticationService.Validate(authCredentials.EmailAddress, authCredentials.Password);
                 var personObject = _personService.GetPersonById(personId);
-				var session = CreateApiSession(personId);
-				authCredentials.SessionKey = Encryption.DesEncrypt(session.Id + "|" + session.SesKey + "|" + DateTime.Now.Ticks);
-				authCredentials.PersonId = personId;
-				authCredentials.Desc = "Logged in successfully";
+                var session = CreateApiSession(personId);
+                authCredentials.SessionKey = Encryption.DesEncrypt(session.Id + "|" + session.SesKey + "|" + DateTime.Now.Ticks);
+                authCredentials.PersonId = personId;
+                authCredentials.Desc = "Logged in successfully";
                 authCredentials.PersonType = personObject.PerType;
                 authCredentials.PersonFullName = personObject.PerFirstname + " " + personObject.PerLastname;
             }
-			catch (Exception e)
-			{
-				authCredentials.PersonId = 0;
-				authCredentials.Desc = e.Message;
-			}
-			return authCredentials;
-		}
+            catch (Exception e)
+            {
+                authCredentials.PersonId = 0;
+                authCredentials.Desc = e.Message;
+            }
+            return authCredentials;
+        }
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private Session CreateApiSession(long personId)
-		{
-			var currentDeviceId = string.Empty;
-			IEnumerable<string> deviceIds;
-			Request.Headers.TryGetValues("XClientId", out deviceIds);
-			var possibleDeviceIds = deviceIds as string[] ?? deviceIds.ToArray();
-			if (possibleDeviceIds.Any())
-				currentDeviceId = possibleDeviceIds.First();
-			var apiSession = _sessionService.GenerateSession(personId, currentDeviceId);
-			return apiSession;
-		} 
+        {
+            var currentDeviceId = string.Empty;
+            IEnumerable<string> deviceIds;
+            Request.Headers.TryGetValues("XClientId", out deviceIds);
+            var possibleDeviceIds = deviceIds as string[] ?? deviceIds.ToArray();
+            if (possibleDeviceIds.Any())
+                currentDeviceId = possibleDeviceIds.First();
+            var apiSession = _sessionService.GenerateSession(personId, currentDeviceId);
+            return apiSession;
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPut]
-		public AuthModelLight CreatePerson(PersonRegisterModel personRegisterModel)
-		{
-			try
-			{
-				string errorInfo;
-				var login = _personService.GetPersonByEmail(personRegisterModel.EmailAddress);
+        public AuthModelLight CreatePerson(PersonRegisterModel personRegisterModel)
+        {
+            try
+            {
+                string errorInfo;
+                var login = _personService.GetPersonByEmail(personRegisterModel.EmailAddress);
 
-				if (login == null) // Initial Registration
-				{
-					var emailRegex = new Regex("^[A-Za-z0-9_\\+-]+(\\.[A-Za-z0-9_\\+-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.([A-Za-z]{2,4})$");
-					if (emailRegex.IsMatch(personRegisterModel.EmailAddress))
-					{
-						// Do extra information validation here...
+                if (login == null) // Initial Registration
+                {
+                    var emailRegex = new Regex("^[A-Za-z0-9_\\+-]+(\\.[A-Za-z0-9_\\+-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.([A-Za-z]{2,4})$");
+                    if (emailRegex.IsMatch(personRegisterModel.EmailAddress))
+                    {
+                        // Do extra information validation here...
 
-						// Create Person
-						personRegisterModel = _personService.CreatePerson(personRegisterModel);
-						AuthModelLight authModelLight = new AuthModelLight
-						{
-							Desc = "Registered successfully...",
+                        // Create Person
+                        personRegisterModel = _personService.CreatePerson(personRegisterModel);
+                        AuthModelLight authModelLight = new AuthModelLight
+                        {
+                            Desc = "Registered successfully...",
                             PersonId = personRegisterModel.PerId,
-							EmailAddress = personRegisterModel.EmailAddress,
-							Password = null, //don't need it here
-							SessionKey = null // don't need it here
-						};
+                            EmailAddress = personRegisterModel.EmailAddress,
+                            Password = null, //don't need it here
+                            SessionKey = null // don't need it here
+                        };
 
-						// Create Device
-						/*DeviceModel deviceModel = new DeviceModel
+                        // Create Device
+                        /*DeviceModel deviceModel = new DeviceModel
 						{
 							PersonId = personRegisterModel.PerId,
 							DeviceCode = personRegisterModel.DeviceCode, // firebase token
@@ -102,11 +103,11 @@ namespace NIHApp.RestApi.Controllers
 						};
 						_deviceService.CreateDevice(deviceModel);*/
 
-						return authModelLight;
-					}
+                        return authModelLight;
+                    }
 
-					errorInfo = ApplicationConfiguration.RegisterEmailInvalid;
-				}
+                    errorInfo = ApplicationConfiguration.RegisterEmailInvalid;
+                }
 
                 /*else if ((personRegisterModel.ObjectId != 0) && !_personService.IsVerified(personRegisterModel.ObjectId)) // Update Registration and/or Resent Veification Code
 				{
@@ -126,30 +127,40 @@ namespace NIHApp.RestApi.Controllers
 
                 else
                 {
-					errorInfo = ApplicationConfiguration.RegisterEmailDuplicate;
-				}
-                
-				return new AuthModelLight()
-				{
-					Desc = errorInfo,
+                    errorInfo = ApplicationConfiguration.RegisterEmailDuplicate;
+                }
+
+                return new AuthModelLight()
+                {
+                    Desc = errorInfo,
                     PersonId = 0,
-					EmailAddress = personRegisterModel.PerEmailAddress,
-					Password = null,
-					SessionKey = null
-				};
-			}
-			catch (Exception e)
-			{
-				return new AuthModelLight()
-				{
-					Desc = e.Message,
+                    EmailAddress = personRegisterModel.PerEmailAddress,
+                    Password = null,
+                    SessionKey = null
+                };
+            }
+            catch (Exception e)
+            {
+                return new AuthModelLight()
+                {
+                    Desc = e.Message,
                     PersonId = 0,
-					EmailAddress = personRegisterModel.PerEmailAddress,
-					Password = null,
-					SessionKey = null
-				};
-			}
-		}
+                    EmailAddress = personRegisterModel.PerEmailAddress,
+                    Password = null,
+                    SessionKey = null
+                };
+            }
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        [HttpGet] 
+        [AllowAnonymous]
+        public IList<PersonModel> GetDriversByType() // this is used to get drivers to assign a parent to an associated driver
+        {
+            var parentsList = _personService.GetDriversByType();
+            return parentsList;
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPut]
         public StatusCodeResult ForgotPassword(string emailAddress)
@@ -169,6 +180,7 @@ namespace NIHApp.RestApi.Controllers
                 throw new InvalidDataException(ApplicationConfiguration.RegisterEmailInvalid);
             return StatusCode(HttpStatusCode.OK);
         }
+
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         [HttpPut]
         public AuthModelLight MatchVerifyCode(int verifyCode, AuthModelLight authCredentials)

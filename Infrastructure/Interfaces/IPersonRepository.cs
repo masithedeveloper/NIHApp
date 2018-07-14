@@ -9,5 +9,6 @@ namespace NIHApp.Infrastructure.Interfaces
 		IList<Person> FindPersonByEmail(string email);
 		IList<Person> FindPersonsByDate(DateTime modifiedAt, long personId);
         IList<Person> FindParentsListByDriverId(long driverId);
+        IList<Person> FindDriversByType();
     }
 }

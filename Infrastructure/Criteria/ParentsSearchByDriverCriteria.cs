@@ -6,10 +6,10 @@ using NHibernate.Criterion;
 
 namespace NIHApp.Infrastructure.Criteria
 {
-    public class ParentsSerchByDriverCriteria : ICriteriaSpecification<Person>
+    public class ParentsSearchByDriverCriteria : ICriteriaSpecification<Person>
     {
         private readonly long _personId;
-        public ParentsSerchByDriverCriteria(long driverId)
+        public ParentsSearchByDriverCriteria(long driverId)
         {
             _personId = driverId;
         }

@@ -42,7 +42,7 @@ namespace NIHApp.RestApi.Controllers
 
             return parentsList;
         }
-
+        
         [HttpPut]
 		public StatusCodeResult ChangePassword(long personId, string newPassword)
 		{
