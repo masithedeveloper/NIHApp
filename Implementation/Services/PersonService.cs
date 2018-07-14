@@ -144,6 +144,7 @@ namespace NIHApp.Implementation.Services
 			{	
                 PerFirstname = personRegisterModel.PerFirstname,
                 PerLastname = personRegisterModel.PerLastname,
+                PerCellPhone = personRegisterModel.PerCellPhone,
                 PerEmail = personRegisterModel.EmailAddress,
                 PerPassword = personRegisterModel.Password, // remove this as a later stage
                 PerHashPassword = AuthenticationHelper.GetPasswordHash(personRegisterModel.EmailAddress, personRegisterModel.Password),

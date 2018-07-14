@@ -93,14 +93,14 @@ namespace NIHApp.RestApi.Controllers
 						};
 
 						// Create Device
-						DeviceModel deviceModel = new DeviceModel
+						/*DeviceModel deviceModel = new DeviceModel
 						{
 							PersonId = personRegisterModel.PerId,
 							DeviceCode = personRegisterModel.DeviceCode, // firebase token
 							DeviceDescription = personRegisterModel.DeviceDescription,
 							OS = personRegisterModel.OS
 						};
-						_deviceService.CreateDevice(deviceModel);
+						_deviceService.CreateDevice(deviceModel);*/
 
 						return authModelLight;
 					}
