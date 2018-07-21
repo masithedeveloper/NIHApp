@@ -168,6 +168,7 @@ namespace NIHApp.RestApi.Controllers
             var emailRegex = new Regex("^[A-Za-z0-9_\\+-]+(\\.[A-Za-z0-9_\\+-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.([A-Za-z]{2,4})$");
             if (emailRegex.IsMatch(emailAddress))
             {
+
                 var person = _personService.GetPersonByEmail(emailAddress);
                 if (person == null)
                     throw new InvalidDataException("Person does not exist.");
