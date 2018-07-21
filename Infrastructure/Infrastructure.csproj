@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="Criteria\EventSearchByDatesAndParentIdCriteria.cs" />
     <Compile Include="Criteria\NotificationsSearchByParentIdCriteria.cs" />
-    <Compile Include="Criteria\ParentsSerchByDriverCriteria.cs" />
+    <Compile Include="Criteria\PersonSearchByTypeCriteria.cs" />
+    <Compile Include="Criteria\ParentsSearchByDriverCriteria.cs" />
     <Compile Include="Criteria\SessionSearchByPersonIdCriteria.cs" />
     <Compile Include="Criteria\DevicesSearchByDateCriteria.cs" />
     <Compile Include="Criteria\DevicesSearchByCodeCriteria.cs" />
@@ -83,15 +84,14 @@
     <Compile Include="Repositories\ScheduledEmailRepository.cs" />
     <Compile Include="Repositories\TransportRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{8f990c59-2e2c-4951-865b-7f0f0017c1e3}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
