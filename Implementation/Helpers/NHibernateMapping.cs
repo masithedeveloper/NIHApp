@@ -19,9 +19,10 @@ namespace NIHApp.Implementation.Helpers
 		public virtual void Config(IPersistenceUnitCfg puCfg, Configuration nhCfg)
 		{
 			var config = Fluently.Configure(nhCfg)
-				.Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromAppSetting("connection_string")))
+				//.Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromAppSetting("connection_string")))
+				.Database(MySQLConfiguration.Standard.ConnectionString(c => c.FromAppSetting("connection_string")))
 				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<PersonMap>())
-				.ExposeConfiguration(x => x.SetProperty("current_session_context_class", "web"))
+				/*.ExposeConfiguration(x => x.SetProperty("current_session_context_class", "web"))
 				//                .ExposeConfiguration(x => x.SetProperty("cache.provider_class", "NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache"))
 				//                .ExposeConfiguration(x => x.SetProperty("cache.use_second_level_cache", "true"))
 				//                .ExposeConfiguration(x => x.SetProperty("cache.use_query_cache", "true"))
@@ -29,7 +30,7 @@ namespace NIHApp.Implementation.Helpers
 				.ExposeConfiguration(x => x.SetProperty("command_timeout", "60"))
 				.ExposeConfiguration(x => x.SetProperty("show_sql", "false"))
 				.ExposeConfiguration(x => x.SetProperty("adonet.batch_size", "1250"))
-				.ExposeConfiguration(x => x.SetProperty("generate_statistics", "false"))
+				.ExposeConfiguration(x => x.SetProperty("generate_statistics", "false"))*/
 				.BuildConfiguration();
 			//config.EventListeners.PreInsertEventListeners = new IPreInsertEventListener[] { AuditTrailListener.Instance };
 			//config.EventListeners.PreUpdateEventListeners = new IPreUpdateEventListener[] { AuditTrailListener.Instance };
