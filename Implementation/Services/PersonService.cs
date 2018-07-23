@@ -15,24 +15,24 @@ namespace NIHApp.Implementation.Services
 	public class PersonService : IPersonService
 	{
 		private readonly IPersonRepository _personRepository;
-		private readonly IEmailNotificationService _notificationService;
-		private readonly IScheduledEmailService _scheduledEmailService;
+		//private readonly IEmailNotificationService _notificationService;
+		//private readonly IScheduledEmailService _scheduledEmailService;
 		private readonly IApplicationConfiguration _applicationConfiguration;
-		private readonly IScheduledEmailRepository _scheduledEmailRepository;
+		//private readonly IScheduledEmailRepository _scheduledEmailRepository;
 		private readonly IDeviceRepository _deviceRepository;
 		private readonly ISessionRepository _sessionRepository;
 		private readonly Random _random;
 
-		public PersonService(IPersonRepository personRepository, IDeviceRepository deviceRepository, ISessionRepository sessionRepository, IEmailNotificationService emailNotificationService, IScheduledEmailService scheduledEmailService, IApplicationConfiguration applicationConfiguration, IScheduledEmailRepository scheduledEmailRepository)
+		public PersonService(IPersonRepository personRepository, IDeviceRepository deviceRepository, ISessionRepository sessionRepository, IApplicationConfiguration applicationConfiguration)
 		{
 			_random = new Random((int)DateTime.Now.Ticks);
 			_personRepository = personRepository;
 			_deviceRepository = deviceRepository;
 			_sessionRepository = sessionRepository;
-			_notificationService = emailNotificationService;
-			_scheduledEmailService = scheduledEmailService;
+			//_notificationService = emailNotificationService;
+			//_scheduledEmailService = scheduledEmailService;
 			_applicationConfiguration = applicationConfiguration;
-			_scheduledEmailRepository = scheduledEmailRepository;
+			//_scheduledEmailRepository = scheduledEmailRepository;
 		}
 
 		public bool ChangePassword(long personId, string newPassword = "")
@@ -62,11 +62,11 @@ namespace NIHApp.Implementation.Services
 
 			if (newPassword == string.Empty) // Email New Generated Password
 			{
-				var emailSubject = _notificationService.GetForgotPasswordSubject();
+				/*var emailSubject = _notificationService.GetForgotPasswordSubject();
 				var emailBody = _notificationService.GetForgotPasswordMailBody(person, password);
 				var fromAddress = _applicationConfiguration.GetSetting("from_address");
 				var fromName = _applicationConfiguration.GetSetting("from_name");
-				_scheduledEmailService.CreatScheduledEmail(fromAddress, fromName, person.PerEmail, string.Empty, string.Empty, emailSubject, emailBody, true, ScheduledEmailType.ForgotPassword, person.Id);
+				_scheduledEmailService.CreatScheduledEmail(fromAddress, fromName, person.PerEmail, string.Empty, string.Empty, emailSubject, emailBody, true, ScheduledEmailType.ForgotPassword, person.Id);*/
 			}
 
 			return true;
@@ -207,13 +207,13 @@ namespace NIHApp.Implementation.Services
 		public PersonRegisterModel UpdatePerson(PersonRegisterModel personRegisterModel)
 		{
 			var person = _personRepository.Get(personRegisterModel.PerId);
-			var scheduledEmail = (ScheduledEmail)_scheduledEmailService.GetScheduledEmailsByPersonId(personRegisterModel.PerId).FirstOrNull();
+			//var scheduledEmail = (ScheduledEmail)_scheduledEmailService.GetScheduledEmailsByPersonId(personRegisterModel.PerId).FirstOrNull();
 
 			// Verification Code Email exception occured
-			if ((scheduledEmail != null) && !scheduledEmail.SchReady && !scheduledEmail.SchEmailed && (person.PerEmail == personRegisterModel.PerEmailAddress))
+			/*if ((scheduledEmail != null) && !scheduledEmail.SchReady && !scheduledEmail.SchEmailed && (person.PerEmail == personRegisterModel.PerEmailAddress))
 			{
 				throw new Exception("Email Error");
-			}
+			}*/
 
 			person.PerEmail = personRegisterModel.PerEmailAddress;
 			person.PerFirstname = personRegisterModel.PerFirstname;
@@ -241,11 +241,11 @@ namespace NIHApp.Implementation.Services
 			};
 
 			//Send Registration Mail
-			var emailSubject = _notificationService.GetRegisterSubject();
+			/*var emailSubject = _notificationService.GetRegisterSubject();
 			var emailBody = _notificationService.GetRegisterMailBody(person);
 			var fromAddress = _applicationConfiguration.GetSetting("from_address");
 			var fromName = _applicationConfiguration.GetSetting("from_name");
-			_scheduledEmailService.CreatScheduledEmail(fromAddress, fromName, person.PerEmail, string.Empty, string.Empty, emailSubject, emailBody, true, ScheduledEmailType.Registration, person.Id);
+			_scheduledEmailService.CreatScheduledEmail(fromAddress, fromName, person.PerEmail, string.Empty, string.Empty, emailSubject, emailBody, true, ScheduledEmailType.Registration, person.Id);*/
 
 			return personRegisterModel;
 		}
@@ -287,12 +287,12 @@ namespace NIHApp.Implementation.Services
 					_sessionRepository.Delete(apiSession);
 				}
 
-				IList<ScheduledEmail> scheduledEmails = _scheduledEmailRepository.GetScheduledEmailsByPersonId(person.Id);
+				/*IList<ScheduledEmail> scheduledEmails = _scheduledEmailRepository.GetScheduledEmailsByPersonId(person.Id);
 				foreach (var scheduledEmail in scheduledEmails)
 				{
 					_scheduledEmailRepository.Delete(scheduledEmail);
 				}
-
+                */
 				_personRepository.Delete(person);
 				transaction.Commit();
 			}

@@ -34,12 +34,10 @@ namespace NIHApp.Implementation.Container
 
 			For(typeof(IApplicationConfiguration)).Use(typeof(ApplicationConfiguration));
             
-			For(typeof(IBlobService)).Use(typeof(BlobService));
-            
+			//For(typeof(IBlobService)).Use(typeof(BlobService));
             For(typeof(IScheduledEmailService)).Use(typeof(ScheduledEmailService));
-            For(typeof(IScheduledEmailRepository)).Use(typeof(ScheduledEmailRepository));
-
-            For(typeof(IEmailNotificationService)).Use(typeof(EmailNotificationService));
+            //For(typeof(IScheduledEmailRepository)).Use(typeof(ScheduledEmailRepository));
+            //For(typeof(IEmailNotificationService)).Use(typeof(EmailNotificationService));
 
             For(typeof(ISMSService)).Use(typeof(SMSService));
 

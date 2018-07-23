@@ -45,7 +45,7 @@ namespace NIHApp.RestApi.Controllers
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-			IEnumerable<string> possibleSessionIds;
+            /*IEnumerable<string> possibleSessionIds;
 			var sessionId = string.Empty;
 			controllerContext.Request.Headers.TryGetValues("XSessionId", out possibleSessionIds);
 			if (possibleSessionIds == null)
@@ -86,7 +86,23 @@ namespace NIHApp.RestApi.Controllers
 					}
 				}
 			}
-			throw new ApiSecurityException();
+            */
+            
+            IEnumerable<string> personIds;
+            controllerContext.Request.Headers.TryGetValues("PersonId", out personIds);
+            if (personIds != null)
+            {
+                //CurrentSession = session;
+                //CurrentClientId = clientId;
+                var user = _personService.GetPersonEntityById(Convert.ToInt64(personIds.First()));
+                var userPrincipal = new UserPrincipal(user);
+                Thread.CurrentPrincipal = userPrincipal;
+                HttpContext.Current.User = userPrincipal;
+                HttpContext.Current.Response.AddHeader(NIHAppHeader.SessionValidHeader, "1");
+                return;
+            }
+
+            throw new ApiSecurityException();
 		}
 
 		protected bool IsValidPersonRequest(long personId)
