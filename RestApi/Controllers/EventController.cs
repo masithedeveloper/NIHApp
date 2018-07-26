@@ -8,14 +8,16 @@ using NIHApp.RestApi.Helpers;
 
 namespace NIHApp.RestApi.Controllers
 {
-	public class EventController : BaseController
+	public class EventController : ApiController
 	{
 		private readonly IEventService _eventService;
+        private readonly IPersonService _personService;
 
-		public EventController(ISessionService apiSessionService, IPersonService personService, IEventService eventService) : base(apiSessionService, personService)
+        public EventController(ISessionService apiSessionService, IPersonService personService, IEventService eventService)// : base(apiSessionService, personService)
 		{
             _eventService = eventService;
-		}
+            _personService = personService;
+        }
 
 		[HttpGet]
 		public BillSummaryModel GetTripsBillForTheCurrentMonth(long parentId)
