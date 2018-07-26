@@ -24,9 +24,9 @@ namespace NIHApp.RestApi.Controllers
 			if (person == null)
 				throw new InvalidDataException("Parent does not exist.");
 
-			if (!IsValidPersonRequest(parentId))
+			/*if (!IsValidPersonRequest(parentId))
 				throw new ApiSecurityException();
-            
+            */
 			return _eventService.GetTripsBillForTheCurrentMonth(parentId);
 		}
 
@@ -38,8 +38,8 @@ namespace NIHApp.RestApi.Controllers
 			if (driver == null)
 				throw new InvalidDataException("Driver does not exist.");
 
-			if (!IsValidPersonRequest(eventModel.EvtDriverId))
-				throw new ApiSecurityException();
+			/*if (!IsValidPersonRequest(eventModel.EvtDriverId))
+				throw new ApiSecurityException();*/
 
             // check for parent
             var parent = _personService.GetPersonById(eventModel.EvtParentId);

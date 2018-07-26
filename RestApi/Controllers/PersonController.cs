@@ -24,8 +24,8 @@ namespace NIHApp.RestApi.Controllers
 			if (person == null)
 				throw new InvalidDataException("Person does not exist.");
 
-			if (!IsValidPersonRequest(personId))
-				throw new ApiSecurityException();
+			/*if (!IsValidPersonRequest(personId))
+				throw new ApiSecurityException();*/
         
 			return person;
 		}
@@ -37,8 +37,8 @@ namespace NIHApp.RestApi.Controllers
             if (parentsList == null)
                 throw new InvalidDataException("Person does not exist.");
 
-            if (!IsValidPersonRequest(driverId))
-                throw new ApiSecurityException();
+            /*if (!IsValidPersonRequest(driverId))
+                throw new ApiSecurityException();*/
 
             return parentsList;
         }
