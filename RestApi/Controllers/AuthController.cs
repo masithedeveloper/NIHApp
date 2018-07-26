@@ -39,8 +39,8 @@ namespace NIHApp.RestApi.Controllers
             {
                 var personId = _authenticationService.Validate(authCredentials.EmailAddress, authCredentials.Password);
                 var personObject = _personService.GetPersonById(personId);
-                var session = CreateApiSession(personId);
-                authCredentials.SessionKey = Encryption.DesEncrypt(session.Id + "|" + session.SesKey + "|" + DateTime.Now.Ticks);
+                /*var session = CreateApiSession(personId);
+                authCredentials.SessionKey = Encryption.DesEncrypt(session.Id + "|" + session.SesKey + "|" + DateTime.Now.Ticks);*/
                 authCredentials.PersonId = personId;
                 authCredentials.Desc = "Logged in successfully";
                 authCredentials.PersonType = personObject.PerType;
